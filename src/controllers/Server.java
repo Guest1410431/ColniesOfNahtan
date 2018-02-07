@@ -17,7 +17,8 @@ public class Server implements GameConstants
 		gameMode = GameMode.MENU;
 		
 		game = new Game(gameMode);
-		session = new Session(game);
+		session = new Session();
+		// Run Game
 	}
 
 	public Session getSession()

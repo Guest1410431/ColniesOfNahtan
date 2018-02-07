@@ -16,7 +16,6 @@ public class CardListener extends MouseAdapter
 		super.mouseEntered(e);
 		
 		card = (Card) e.getSource();
-		System.out.println("X: " + card.getX() + " | Y: " + card.getY());
 		card.setLocation(new Point((int)card.getLocation().getX(), (int)card.getLocation().getY()-20));
 	}
 	public void mouseExited(MouseEvent e)
@@ -32,7 +31,10 @@ public class CardListener extends MouseAdapter
 	}
 	public void mouseClicked(MouseEvent e)
 	{
+		super.mouseClicked(e);
 		
+		card = (Card)e.getSource();
+		System.out.println("Card: " + card.toString());
 	}
 	public void setServer(Server server)
 	{

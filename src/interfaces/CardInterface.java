@@ -6,8 +6,8 @@ import common.GameEnums.ResourceType;
 
 public interface CardInterface{
 	
-	int WIDTH = 50;
-	int HEIGHT = 75;
+	int WIDTH = 42;
+	int HEIGHT = 65;
 	
 	Dimension SMALL = new Dimension(WIDTH,HEIGHT);
 	Dimension MEDIUM = new Dimension(WIDTH*2,HEIGHT*2);
@@ -15,9 +15,6 @@ public interface CardInterface{
 	
 	//Default card size
 	Dimension CARD_SIZE = MEDIUM;
-	
-	//Default offset
-	int OFFSET = 0;
 	
 	// Sets the resource type of the card
 	void setResourceType(ResourceType resource);

@@ -1,5 +1,8 @@
 package view;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 
 import controllers.Server;
@@ -17,8 +20,32 @@ public class Window extends JFrame implements GameConstants
 		server = new Server();
 		CARD_LISTENER.setServer(server);
 		BUTTON_LISTENER.setServer(server);
+		TILE_LISTENER.setServer(server);
 
 		session = server.getSession();
 		add(session);
+
+		addKeyListener(new KeyListener()
+		{
+			public void keyTyped(KeyEvent e)
+			{
+
+			}
+
+			public void keyReleased(KeyEvent e)
+			{
+
+			}
+
+			public void keyPressed(KeyEvent e)
+			{
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+				{
+					System.exit(0);
+				}
+			}
+		});
+		setResizable(false);
+		setLocationRelativeTo(null);
 	}
 }

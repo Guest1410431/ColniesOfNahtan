@@ -10,11 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import common.GameEnums.ResourceType;
 import model.Card;
+import model.Hand;
 import model.Player;
+import model.ResourceCard;
 import interfaces.GameConstants;
 
 public class PlayerPanel extends JPanel implements GameConstants
@@ -23,9 +25,10 @@ public class PlayerPanel extends JPanel implements GameConstants
 
 	private Box cardPanel;
 	private Box controlPanel;
-	private JLayeredPane cardHolder;
+	
+	private Hand cardHolder;
 
-	// TODO: Replace with own button
+	// TODO: Replace with own GUI buttons
 	private JButton build;
 	private JButton roll;
 	private JLabel playerName;
@@ -36,8 +39,9 @@ public class PlayerPanel extends JPanel implements GameConstants
 		this.player = player;
 
 		cardPanel = Box.createHorizontalBox();
-		cardHolder = new JLayeredPane();
-		cardHolder.setPreferredSize(new Dimension(600, 175));
+		cardHolder = new Hand();
+		cardHolder.setPreferredSize(new Dimension(600, 200));
+		cardHolder.setSize(600, 200);
 
 		setCards();
 		setControlPanel();
@@ -59,8 +63,7 @@ public class PlayerPanel extends JPanel implements GameConstants
 	{
 		cardHolder.removeAll();
 
-		System.out.println("Card Hold: " + cardHolder.getWidth() + " | Player Hand: " + player.getHand().size());
-		Point origin = getPoint(cardHolder.getWidth(), player.getHand().size());
+		Point origin = new Point(0, 20);
 		int offset = calculateOffset(cardHolder.getWidth(), player.getHand().size());
 
 		for (int i = 0; i < player.getHand().size(); i++)
@@ -76,8 +79,8 @@ public class PlayerPanel extends JPanel implements GameConstants
 
 	private void setControlPanel()
 	{
-		build = new JButton("Build");
-		roll = new JButton("Roll");
+		build = new JButton("Add");
+		roll = new JButton("Remove");
 		playerName = new JLabel(player.getName());
 
 		// style
@@ -97,11 +100,12 @@ public class PlayerPanel extends JPanel implements GameConstants
 		controlPanel.add(build);
 		controlPanel.add(Box.createVerticalStrut(15));
 		controlPanel.add(roll);
+		controlPanel.addKeyListener(KEY_LISTENER);
 	}
 
 	private int calculateOffset(int width, int totalCards)
 	{
-		int offset = 80;
+		int offset = 75;
 
 		if (totalCards <= 8)
 		{
@@ -109,21 +113,7 @@ public class PlayerPanel extends JPanel implements GameConstants
 		}
 		else
 		{
-			return (int) ((width - 100) / (totalCards - 1));
-		}
-	}
-
-	private Point getPoint(int width, int totalCards)
-	{
-		Point p = new Point(0, 20);
-		if (totalCards >= 8)
-		{
-			return p;
-		}
-		else
-		{
-			p.x = (width - calculateOffset(width, totalCards) * totalCards) / 2;
-			return p;
+			return (int) ((width - 150) / (totalCards - 1));
 		}
 	}
 
@@ -135,13 +125,46 @@ public class PlayerPanel extends JPanel implements GameConstants
 			{
 				if (e.getSource() == build)
 				{
-					System.out.println("Build");
+					Card card = new ResourceCard(ResourceType.values()[(int) (Math.random() * 5)]);
+					card.addMouseListener(CARD_LISTENER);
+					addCard(card);
 				}
 				else if (e.getSource() == roll)
 				{
-					System.out.println("Roll");
+					removeCard(ResourceType.WOOD);
 				}
 			}
+		}
+	}
+
+	public void addCard(Card card)
+	{
+		player.addCard(card);
+		setCards();
+	}
+
+	public void removeCard(ResourceType resourceType)
+	{
+		if (player.getHand().size() > 0)
+		{
+			for (int i = 0; i < player.getHand().size(); i++)
+			{
+				if (player.getHand().get(i).getResourceType() == resourceType)
+				{
+					removeCard(i);
+					return;
+				}
+			}
+			System.out.println("Insufficient Resources");
+		}
+	}
+
+	private void removeCard(int index)
+	{
+		if (player.getHand().size() > 0)
+		{
+			player.removeCard(index);
+			setCards();
 		}
 	}
 }

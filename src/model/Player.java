@@ -23,7 +23,7 @@ public class Player
 	}
 	private void init()
 	{
-		isTurn = false;
+		isTurn = true;
 		points = 0;
 		hand = new ArrayList<Card>();
 	}
@@ -38,6 +38,10 @@ public class Player
 	public void addCard(Card card)
 	{
 		hand.add(card);
+	}
+	public void removeCard(int index)
+	{
+		hand.remove(index);
 	}
 	public boolean isTurn()
 	{
