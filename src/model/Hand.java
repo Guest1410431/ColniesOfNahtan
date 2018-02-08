@@ -1,8 +1,8 @@
 package model;
 
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JLayeredPane;
 
@@ -10,27 +10,31 @@ import common.GameEnums.ResourceType;
 
 public class Hand extends JLayeredPane
 {
-	private ArrayList<Card>cards;
-	
 	public Hand()
-	{
-		cards = new ArrayList<Card>();
-		
+	{		
 		this.addMouseListener(new MouseHandler());
 	}
 	public void addCard(Card card)
 	{
-		
+		this.add(card);
 	}
 	public void removeCard(ResourceType resourceType)
 	{
-		
+		for(Component card : this.getComponents())
+		{
+			if(card.getName().equals(resourceType.name()))
+			{
+				this.remove(card);
+				return;
+			}
+		}
+		System.out.println("Insufficient Resources");
 	}
 	class MouseHandler extends MouseAdapter
 	{
 		public void mouseEntered(MouseEvent e)
 		{
-			System.out.println("Hello");
+			
 		}
 		public void mouseExited(MouseEvent e)
 		{

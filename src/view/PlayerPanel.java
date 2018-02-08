@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +12,6 @@ import javax.swing.JPanel;
 
 import common.GameEnums.ResourceType;
 import model.Card;
-import model.Hand;
 import model.Player;
 import model.ResourceCard;
 import interfaces.GameConstants;
@@ -25,8 +22,6 @@ public class PlayerPanel extends JPanel implements GameConstants
 
 	private Box cardPanel;
 	private Box controlPanel;
-	
-	private Hand cardHolder;
 
 	// TODO: Replace with own GUI buttons
 	private JButton build;
@@ -39,14 +34,11 @@ public class PlayerPanel extends JPanel implements GameConstants
 		this.player = player;
 
 		cardPanel = Box.createHorizontalBox();
-		cardHolder = new Hand();
-		cardHolder.setPreferredSize(new Dimension(600, 200));
-		cardHolder.setSize(600, 200);
 
 		setCards();
 		setControlPanel();
 
-		cardPanel.add(cardHolder);
+		cardPanel.add(player.getHand());
 		cardPanel.add(Box.createHorizontalStrut(40));
 		cardPanel.add(controlPanel);
 		add(cardPanel);
@@ -57,23 +49,14 @@ public class PlayerPanel extends JPanel implements GameConstants
 
 		roll.addActionListener(BUTTON_LISTENER);
 		roll.addActionListener(buttonHandler);
+		
+		repaint();
 	}
 
 	private void setCards()
 	{
-		cardHolder.removeAll();
-
-		Point origin = new Point(0, 20);
-		int offset = calculateOffset(cardHolder.getWidth(), player.getHand().size());
-
-		for (int i = 0; i < player.getHand().size(); i++)
-		{
-			Card card = player.getHand().get(i);
-			card.setBounds(origin.x, origin.y, card.CARD_SIZE.width, card.CARD_SIZE.height);
-			cardHolder.add(card, i);
-			cardHolder.moveToFront(card);
-			origin.x += offset;
-		}
+		player.setCards();
+		
 		repaint();
 	}
 
@@ -101,20 +84,6 @@ public class PlayerPanel extends JPanel implements GameConstants
 		controlPanel.add(Box.createVerticalStrut(15));
 		controlPanel.add(roll);
 		controlPanel.addKeyListener(KEY_LISTENER);
-	}
-
-	private int calculateOffset(int width, int totalCards)
-	{
-		int offset = 75;
-
-		if (totalCards <= 8)
-		{
-			return offset;
-		}
-		else
-		{
-			return (int) ((width - 150) / (totalCards - 1));
-		}
 	}
 
 	private class ButtonHandler implements ActionListener
@@ -145,26 +114,7 @@ public class PlayerPanel extends JPanel implements GameConstants
 
 	public void removeCard(ResourceType resourceType)
 	{
-		if (player.getHand().size() > 0)
-		{
-			for (int i = 0; i < player.getHand().size(); i++)
-			{
-				if (player.getHand().get(i).getResourceType() == resourceType)
-				{
-					removeCard(i);
-					return;
-				}
-			}
-			System.out.println("Insufficient Resources");
-		}
-	}
-
-	private void removeCard(int index)
-	{
-		if (player.getHand().size() > 0)
-		{
-			player.removeCard(index);
-			setCards();
-		}
+		player.removeCard(resourceType);
+		setCards();
 	}
 }

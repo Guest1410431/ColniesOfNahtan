@@ -31,18 +31,23 @@ public abstract class Card extends JPanel implements GameConstants, CardInterfac
 		this.resource = resource;
 		switch(resource) {
 		case WOOD : 
+			setName(ResourceType.WOOD.name());
 			cardImage = ASSETS.getCard_wood();
 			break;
 		case SHEEP : 
+			setName(ResourceType.SHEEP.name());
 			cardImage = ASSETS.getCard_sheep();
 			break;
 		case ORE : 
+			setName(ResourceType.ORE.name());
 			cardImage = ASSETS.getCard_ore();
 			break;
 		case WHEAT : 
+			setName(ResourceType.WHEAT.name());
 			cardImage = ASSETS.getCard_wheat();
 			break;
 		case CLAY : 
+			setName(ResourceType.CLAY.name());
 			cardImage = ASSETS.getCard_clay();
 			break;
 		default:
