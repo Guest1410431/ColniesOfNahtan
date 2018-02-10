@@ -12,7 +12,11 @@ public class Hand extends JLayeredPane
 {
 	public Hand()
 	{		
-		this.addMouseListener(new MouseHandler());
+		this.setName("Hand");
+
+		MouseHandler handler = new MouseHandler();
+		this.addMouseListener(handler);
+		this.addMouseMotionListener(handler);
 	}
 	public void addCard(Card card)
 	{
@@ -32,13 +36,17 @@ public class Hand extends JLayeredPane
 	}
 	class MouseHandler extends MouseAdapter
 	{
-		public void mouseEntered(MouseEvent e)
+		public void mouseMoved(MouseEvent e)
 		{
+			Hand hand = (Hand)e.getSource();
 			
-		}
-		public void mouseExited(MouseEvent e)
-		{
-			
+			for(Component card : hand.getComponents())
+			{
+				if(card.contains(e.getX(), e.getY()))
+				{
+					System.out.println("Card: " + card.getName() + " | " + hand.getLayer(card));
+				}
+			}
 		}
 	}
 }

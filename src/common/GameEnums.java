@@ -47,4 +47,19 @@ public class GameEnums
 			return value;
 		}
 	}
+	public enum ResourceTile
+	{
+		WOOD("wood"), SHEEP("sheep"), ORE("ore"), WHEAT("wheat"), CLAY("clay"), WATER("water"), DESERT("desert");
+		
+		private String path;
+		
+		private ResourceTile(String path)
+		{
+			this.path = path;
+		}
+		public String toString()
+		{
+			return path;
+		}
+	}
 }

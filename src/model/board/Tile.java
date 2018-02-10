@@ -1,6 +1,7 @@
 package model.board;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -12,7 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import common.GameEnums;
-import common.GameEnums.ResourceType;
+import common.GameEnums.ResourceTile;
 import interfaces.GameConstants;
 import interfaces.TileInterface;
 
@@ -22,24 +23,28 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 {
 	private int xPos;
 	private int yPos;
-	private int radius;
+	private Dimension radius;
 
 	// Number on the Tile (2-12)
 	private int diceRoll;
 
-	private ResourceType resource;
+	private ResourceTile resource;
 
 	private BufferedImage tileImage;
 
-	public Tile(int xPos, int yPos, int width)
+	public Tile(int xPos, int yPos)
 	{
 		this.xPos = xPos;
 		this.yPos = yPos;
 
-		radius = width;
+		radius = TileInterface.TILE_SIZE;
+	}
+	public void setDice(int diceRoll)
+	{
+		this.diceRoll = diceRoll;
 	}
 
-	public void setResourceType(ResourceType resource)
+	public void setResourceTile(ResourceTile resource)
 	{
 		this.resource = resource;
 		
@@ -60,6 +65,12 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 		case CLAY:
 			tileImage = ASSETS.getTile_clay();
 			break;
+		case WATER: 
+			tileImage = ASSETS.getTile_water();
+			break;
+		case DESERT:
+			tileImage = ASSETS.getTile_desert();
+			break;
 		default:
 			tileImage = ASSETS.getDefaultTexture();
 		}
@@ -69,7 +80,7 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 		this.addMouseListener(new MouseHandler());
 	}
 
-	public GameEnums.ResourceType getResourceType()
+	public GameEnums.ResourceTile getResourceTile()
 	{
 		return resource;
 	}
@@ -90,8 +101,8 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 		{
 			angle = ((Math.PI / 3.0) * i);
 
-			xPoints[i] = (int) (Math.round(xPos + Math.sin(angle) * radius));
-			yPoints[i] = (int) (Math.round(yPos + Math.cos(angle) * radius));
+			xPoints[i] = (int) (Math.round(xPos + Math.sin(angle) * radius.getWidth()));
+			yPoints[i] = (int) (Math.round(yPos + Math.cos(angle) * radius.getHeight()));
 		}
 		return new Polygon(xPoints, yPoints, 6);
 	}
@@ -113,8 +124,8 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 	public void render(Graphics g)
 	{
 		drawHexagon(g);
-		g.setColor(Color.RED);
-		g.drawRect(getX()-(getWidth()/2)+(getWidth()/16), getY()-(getHeight()/2), getWidth()-(getWidth()/8), getHeight());
+		//g.setColor(Color.RED);
+		//g.drawRect(getX()-(getWidth()/2)+(getWidth()/16), getY()-(getHeight()/2), getWidth()-(getWidth()/8), getHeight());
 	}
 	
 	class MouseHandler extends MouseAdapter

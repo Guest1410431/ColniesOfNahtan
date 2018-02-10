@@ -2,7 +2,7 @@ package interfaces;
 
 import java.awt.Dimension;
 
-import common.GameEnums.ResourceType;
+import common.GameEnums.ResourceTile;
 
 public interface TileInterface
 {
@@ -14,9 +14,9 @@ public interface TileInterface
 	Dimension BIG = new Dimension(WIDTH * 3, HEIGHT * 3);
 
 	// Default tile size
-	Dimension TILE_SIZE = MEDIUM;
+	Dimension TILE_SIZE = SMALL;
 
 	// Sets the resource type of the tile
-	void setResourceType(ResourceType resource);
-	ResourceType getResourceType();
+	void setResourceTile(ResourceTile resource);
+	ResourceTile getResourceTile();
 }

@@ -21,6 +21,8 @@ public class Assets
 	private BufferedImage tile_ore;
 	private BufferedImage tile_wheat;
 	private BufferedImage tile_clay;
+	private BufferedImage tile_water;
+	private BufferedImage tile_desert;
 
 	public Assets()
 	{
@@ -42,6 +44,8 @@ public class Assets
 		tile_ore = loadImage("res/tile/ore.png");
 		tile_wheat = loadImage("res/tile/wheat.png");
 		tile_clay = loadImage("res/tile/clay.png");
+		tile_water = loadImage("res/tile/water.png");
+		tile_desert = loadImage("res/tile/desert.png");
 	}
 
 	private static BufferedImage loadImage(String path)
@@ -112,5 +116,15 @@ public class Assets
 	public BufferedImage getTile_clay()
 	{
 		return tile_clay;
+	}
+
+	public BufferedImage getTile_water()
+	{
+		return tile_water;
+	}
+
+	public BufferedImage getTile_desert()
+	{
+		return tile_desert;
 	}
 }
