@@ -3,6 +3,7 @@ package model;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Arrays;
 
 import common.GameEnums.ResourceType;
 
@@ -70,10 +71,14 @@ public class Player
 		Point origin = new Point(0, 20);
 		int offset = calculateOffset(hand.getWidth(), hand.getComponentCount());
 		
-		for(int i = 0; i<hand.getComponentCount(); i++)
+		Component[] comps = hand.getComponents();
+		hand.removeAll();
+		Arrays.sort(comps);
+		
+		for(Component comp : comps)
 		{
-			Component comp = hand.getComponent(i);
 			comp.setBounds((int)(origin.getX()), (int)(origin.getY()), (int)(Card.CARD_SIZE.getWidth()), (int)(Card.CARD_SIZE.getHeight()));
+			hand.add(comp);
 			hand.moveToFront(comp);
 			origin.x += offset;
 		}
@@ -92,21 +97,3 @@ public class Player
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

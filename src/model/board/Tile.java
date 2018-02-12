@@ -124,8 +124,8 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 	public void render(Graphics g)
 	{
 		drawHexagon(g);
-		//g.setColor(Color.RED);
-		//g.drawRect(getX()-(getWidth()/2)+(getWidth()/16), getY()-(getHeight()/2), getWidth()-(getWidth()/8), getHeight());
+		g.setColor(Color.BLUE);
+		g.drawString("" + diceRoll,	xPos, yPos+40);
 	}
 	
 	class MouseHandler extends MouseAdapter

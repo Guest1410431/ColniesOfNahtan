@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import controllers.Server;
@@ -16,7 +18,7 @@ public class Window extends JFrame implements GameConstants
 
 	public Window()
 	{
-		this.setSize(800, 800);
+		setSize(800, 800);
 		server = new Server();
 		CARD_LISTENER.setServer(server);
 		BUTTON_LISTENER.setServer(server);
@@ -47,5 +49,6 @@ public class Window extends JFrame implements GameConstants
 		});
 		setResizable(false);
 		setLocationRelativeTo(null);
+		setIconImage(ASSETS.getTile_desert());
 	}
 }
