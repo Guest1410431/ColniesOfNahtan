@@ -13,6 +13,10 @@ public class BoardPanel extends JPanel implements GameConstants
 	
 	public BoardPanel()
 	{
+		
+	}
+	public void initBoard()
+	{
 		board = new Board(this.getWidth(), this.getHeight());
 	}
 	protected void paintComponent(Graphics g)

@@ -14,6 +14,23 @@ public class Matrix<E>
 	{
 		matrix.add(new MatrixNode<E>(x, y, item));
 	}
+	public void set(int x, int y, E item)
+	{
+		if(get(x, y) == null)
+		{
+			add(x, y, item);
+		}
+		else
+		{
+			for(int i=0; i<matrix.size(); i++)
+			{
+				if(matrix.get(i).getX() == x && matrix.get(i).getY() == y)
+				{
+					matrix.set(i, new MatrixNode<E>(x, y, item));
+				}
+			}
+		}
+	}
 	public E get(int x, int y)
 	{
 		for(MatrixNode<E> node : matrix)
@@ -34,5 +51,9 @@ public class Matrix<E>
 			list.add(node.getItem());
 		}		
 		return list;
+	}
+	public int size()
+	{
+		return matrix.size();
 	}
 }

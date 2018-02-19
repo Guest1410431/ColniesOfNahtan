@@ -1,29 +1,37 @@
 package util;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import common.GameEnums.ResourceTile;
+import common.GameEnums.ResourceType;
 
 public class Assets
 {
 	private BufferedImage defaultTexture;
 
 	private BufferedImage card_wood;
-	private BufferedImage card_sheep;
+	private BufferedImage card_wool;
 	private BufferedImage card_ore;
 	private BufferedImage card_wheat;
 	private BufferedImage card_clay;
 
 	private BufferedImage tile_wood;
-	private BufferedImage tile_sheep;
+	private BufferedImage tile_wool;
 	private BufferedImage tile_ore;
 	private BufferedImage tile_wheat;
 	private BufferedImage tile_clay;
 	private BufferedImage tile_water;
 	private BufferedImage tile_desert;
 
+	private static ArrayList<BufferedImage> SoSo_Sheet = new ArrayList<BufferedImage>();
+	private static ArrayList<BufferedImage> FFF_Sheet = new ArrayList<BufferedImage>();
+	
 	public Assets()
 	{
 		loadImages();
@@ -33,19 +41,22 @@ public class Assets
 	{
 		defaultTexture = loadImage("res/defaultTexture.png");
 
-		card_wood = loadImage("res/card/wood.png");
-		card_sheep = loadImage("res/card/sheep.png");
-		card_ore = loadImage("res/card/ore.png");
-		card_wheat = loadImage("res/card/wheat.png");
-		card_clay = loadImage("res/card/clay.png");
+		card_wood = loadImage("res/card/" + ResourceType.WOOD.toString() + ".png");
+		card_wool = loadImage("res/card/" + ResourceType.WOOL.toString() + ".png");
+		card_ore = loadImage("res/card/" + ResourceType.ORE.toString() + ".png");
+		card_wheat = loadImage("res/card/" + ResourceType.WHEAT.toString() + ".png");
+		card_clay = loadImage("res/card/" + ResourceType.CLAY.toString() + ".png");
 
-		tile_wood = loadImage("res/tile/wood.png");
-		tile_sheep = loadImage("res/tile/sheep.png");
-		tile_ore = loadImage("res/tile/ore.png");
-		tile_wheat = loadImage("res/tile/wheat.png");
-		tile_clay = loadImage("res/tile/clay.png");
-		tile_water = loadImage("res/tile/water.png");
-		tile_desert = loadImage("res/tile/desert.png");
+		tile_wood = loadImage("res/tile/" + ResourceTile.WOOD.toString() + ".png");
+		tile_wool = loadImage("res/tile/" + ResourceTile.WOOL.toString() + ".png");
+		tile_ore = loadImage("res/tile/" + ResourceTile.ORE.toString() + ".png");
+		tile_wheat = loadImage("res/tile/" + ResourceTile.WHEAT.toString() + ".png");
+		tile_clay = loadImage("res/tile/" + ResourceTile.CLAY.toString() + ".png");
+		tile_water = loadImage("res/tile/" + ResourceTile.WATER.toString() + ".png");
+		tile_desert = loadImage("res/tile/" + ResourceTile.DESERT.toString() + ".png");
+		
+		loadFFFFontArray();
+		loadSoSoFontArray();
 	}
 
 	private static BufferedImage loadImage(String path)
@@ -62,6 +73,37 @@ public class Assets
 		}
 		return image;
 	}
+	private void loadSoSoFontArray()
+	{
+		BufferedImage fontSheet = loadImage("res/fonts/SoSo_Shady_Font.png");
+
+		int x = 0;
+
+		for (int i = 1; i < fontSheet.getWidth(); i++)
+		{
+			if (fontSheet.getRGB(i, 0) == Color.RED.getRGB())
+			{
+				SoSo_Sheet.add(fontSheet.getSubimage(x + 1, 0, i - x - 1, fontSheet.getHeight()));
+				x = i;
+			}
+		}
+	}
+
+	private void loadFFFFontArray()
+	{
+		BufferedImage fontSheet = loadImage("res/fonts/FFF_Forward_Font.png");
+
+		int x = 0;
+
+		for (int i = 1; i < fontSheet.getWidth(); i++)
+		{
+			if (fontSheet.getRGB(i, 0) == Color.RED.getRGB())
+			{
+				FFF_Sheet.add(fontSheet.getSubimage(x + 1, 0, i - x - 1, fontSheet.getHeight()));
+				x = i;
+			}
+		}
+	}
 
 	public BufferedImage getDefaultTexture()
 	{
@@ -73,9 +115,9 @@ public class Assets
 		return card_wood;
 	}
 
-	public BufferedImage getCard_sheep()
+	public BufferedImage getCard_wool()
 	{
-		return card_sheep;
+		return card_wool;
 	}
 
 	public BufferedImage getCard_ore()
@@ -98,9 +140,9 @@ public class Assets
 		return tile_wood;
 	}
 
-	public BufferedImage getTile_sheep()
+	public BufferedImage getTile_wool()
 	{
-		return tile_sheep;
+		return tile_wool;
 	}
 
 	public BufferedImage getTile_ore()
@@ -126,5 +168,15 @@ public class Assets
 	public BufferedImage getTile_desert()
 	{
 		return tile_desert;
+	}
+	
+	public ArrayList<BufferedImage> getFFF_Font_Letters()
+	{
+		return FFF_Sheet;
+	}
+
+	public ArrayList<BufferedImage> getSoSo_Font_Letters()
+	{
+		return SoSo_Sheet;
 	}
 }

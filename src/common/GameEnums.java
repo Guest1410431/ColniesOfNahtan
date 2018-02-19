@@ -4,7 +4,7 @@ public class GameEnums
 {
 	public enum ResourceType
 	{
-		WOOD("wood"), SHEEP("sheep"), ORE("ore"), WHEAT("wheat"), CLAY("clay");
+		WOOD("wood"), WOOL("wool"), ORE("ore"), WHEAT("wheat"), CLAY("clay");
 		
 		private String path;
 		
@@ -49,7 +49,7 @@ public class GameEnums
 	}
 	public enum ResourceTile
 	{
-		WOOD("wood"), SHEEP("sheep"), ORE("ore"), WHEAT("wheat"), CLAY("clay"), WATER("water"), DESERT("desert");
+		WOOD("wood"), WOOL("wool"), ORE("ore"), WHEAT("wheat"), CLAY("clay"), WATER("water"), DESERT("desert");
 		
 		private String path;
 		
@@ -60,6 +60,23 @@ public class GameEnums
 		public String toString()
 		{
 			return path;
+		}
+	}
+	public enum MenuState
+	{
+		MAIN(0, "main"), GAME(1, "game"), SETTINGS(2, "settings"), PLAYER(3, "player");
+		
+		private int menuState;
+		private String menuName;
+		
+		private MenuState(int menuState, String menuName)
+		{
+			this.menuState = menuState;
+			this.menuName = menuName;
+		}
+		public String toString()
+		{
+			return menuName;
 		}
 	}
 }

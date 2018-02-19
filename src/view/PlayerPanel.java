@@ -44,10 +44,10 @@ public class PlayerPanel extends JPanel implements GameConstants
 		add(cardPanel);
 
 		buttonHandler = new ButtonHandler();
-		build.addActionListener(BUTTON_LISTENER);
+		build.addMouseListener(BUTTON_LISTENER);
 		build.addActionListener(buttonHandler);
 
-		roll.addActionListener(BUTTON_LISTENER);
+		roll.addMouseListener(BUTTON_LISTENER);
 		roll.addActionListener(buttonHandler);
 		
 		repaint();

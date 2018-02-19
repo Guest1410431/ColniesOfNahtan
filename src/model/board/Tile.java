@@ -37,7 +37,7 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 		this.xPos = xPos;
 		this.yPos = yPos;
 
-		radius = TileInterface.TILE_SIZE;
+		radius = TILE_SIZE;
 	}
 	public void setDice(int diceRoll)
 	{
@@ -53,8 +53,8 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 		case WOOD:
 			tileImage = ASSETS.getTile_wood();
 			break;
-		case SHEEP:
-			tileImage = ASSETS.getTile_sheep();
+		case WOOL:
+			tileImage = ASSETS.getTile_wool();
 			break;
 		case ORE:
 			tileImage = ASSETS.getTile_ore();
@@ -124,8 +124,8 @@ public class Tile extends JPanel implements GameConstants, TileInterface
 	public void render(Graphics g)
 	{
 		drawHexagon(g);
-		g.setColor(Color.BLUE);
-		g.drawString("" + diceRoll,	xPos, yPos+40);
+		//g.setColor(Color.BLUE);
+		//g.drawString("" + diceRoll,	xPos, yPos+40);
 	}
 	
 	class MouseHandler extends MouseAdapter

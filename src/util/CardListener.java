@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import controllers.Server;
 import model.Card;
+import model.Hand;
 
 public class CardListener extends MouseAdapter
 {
@@ -31,10 +32,14 @@ public class CardListener extends MouseAdapter
 	}
 	public void mouseClicked(MouseEvent e)
 	{
+		// TODO: When a card gets clicked, add to a list in the hand class
+		//		 so that those cards can be used for trade/building
 		super.mouseClicked(e);
 		
 		card = (Card)e.getSource();
-		System.out.println("Card: " + card.toString());
+		
+		Hand hand = (Hand) card.getParent();
+		//hand.remove(card);
 	}
 	public void setServer(Server server)
 	{
